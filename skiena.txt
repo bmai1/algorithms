@@ -1,0 +1,63 @@
+Requisites for designing correct, efficient, implementable algorithms:
+- technique proficiency (ds, dp, dfs, backtracking)
+    - modeling and abstracting a real-world application into an attackable problem
+- resources; recognition and utilizing existing implementations as a starting point
+
+1.7 Exercises (39)
+1-1. a + b < min(a,b) when a and b are both negative
+1-2. a x b < min(a,b) when one is positive and greater than 1, one is negative
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Chapter 3 - Data Structures
+
+Three fundamental abstract data types (containers, dictionaries, priority queues)
+
+3.1 Contiguous vs. Linked Data Structures (78)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Chapter 8 - Dynamic programming (285)
+
+- Allows for optimization by storing results to avoid recomputing
+- Trick lies in seeing if naive recursive algo computes same subproblems
+- Start off with correct recursive solution
+- Tradeoff of space for time
+
+8.1.3 Example: Fibonacci (find nth fib)
+
+Recursive approach:
+def fib(n):
+    if n <= 1 return n
+    return fib(n - 1) + fib(n - 2)
+
+Caching (Memoization):
+def fib(n):
+    int dp[n + 1];
+    dp[0] = 0;
+    dp[1] = 1;
+    for (int i = 2; i <= n; ++i) {
+        dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    return dp[n];
+
+Optimization (time/memory), O(n) time, O(1) space:
+def fib(n):
+    int pp = 0;
+    int p = 1;
+    for (int i = 2; i <= n; ++i) {
+        // store
+        int n = p + pp;
+        // shift up
+        pp = p;
+        // reassign
+        p = n;
+    }
+    return p + pp;
+
+8.1.4 Binomial Coefficients - eliminate recursion through eval order
+- compute binomial coefficients using implicit recurrence relation in Pascal's triangle
+
+            1
+          1   1
+        1   2   1
+      1   3   3   1
+    1   4   6   4   1
+  1   5  10   10  5   1

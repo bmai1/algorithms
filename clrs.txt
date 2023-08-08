@@ -1,0 +1,103 @@
+Pseudocode conventions on pg. 20
+
+--------------------------------------------------------------------
+Chapter 2 Getting Started
+2.1 Insertion sort - see insertion.cpp, insertion.py
+Loop invariant is a property of a program loop that is true before/after each iteration
+    - e.g. while a[i] < a[j]
+Proof of loop invariant correctness:
+- initialization
+- maintenance
+- termination
+
+2.2 Analyzing algorithms - predicting time and memory resources required, RAM model
+
+2.3 Designing algorithms
+- recursion, divide and conquer
+    - Merge Sort; see Fig 2.3, merge.cpp
+
+2.4 Inversions (41)
+Let A[1..n] be an array of n distinct numbers. If i < j and A[i] > A[j], 
+then the pair (i, j) is called an inversion of A.
+- inversions of [2,3,8,6,1] are (0, 4), (1,4), (2,4), (2,3), (3,4)
+
+--------------------------------------------------------------------
+Chapter 3 Growth of Functions 
+
+3.1 Asymptotic notation (43)
+- used to describe running time of algorithms
+- Θ (theta, both upper/lower bound, average time complexity)
+- O (worst, upper bound [least efficient])
+    - little o notation = loose upper bound
+    - intuitively, lim x->inf f(n) / g(n) = 0;
+    
+- Ω (omega, lower bound [most efficient]) 
+    - ω is to Ω as o is to O 
+
+- see Fig 3.1 time.png
+- Function comparison: transitivity, reflexivity, symmetry, trichotomy
+
+3.2 Standard notation, common functions
+- monotonicity (leetcode!) -> monotically increasing: m <= n => f(m) <= f(n)
+    - strictly increasing is not inclusive
+- floor/ceil, modular arithmetic, factorial (n!) > exponential > polynomial > logarithmic growth
+- lgn = log2n (binary algorithm), lnn = logen (natural log), lg^kn = (lgn)^k (exponentiaion), lglgn = lg(lgn) (composition)
+- fibonacci and the golden ratio φ (phi) -> Binet's Nth-term Formula:
+     int fib(int N) {
+        double phi = (sqrt(5) + 1) / 2;     
+        return round(pow(phi, N) / sqrt(5));
+    }
+
+--------------------------------------------------------------------
+Chapter 4 - Divide and Conquer
+
+- recurrence relation - equation that defines sequence based on rule
+    that gives next term as function of previous terms
+
+4.1 Maximum Subarray Problem (68)
+
+[Best Time to Buy and Sell Stocks]
+- brute force = try every pair to buy low, sell high [Ω(n^2)]
+- consider daily Δprice as an array
+    - now we are trying to find maximum subarray
+
+- any continguous subarray A[i..j] of A[low..high] must be:
+    - in A[low..mid] (low <= i <= j <= mid)
+    - in A[mid + 1..high] (mid < i <= j <= high)
+    - crossing midpoint (low <= i <= mid <= j <= high)
+        - A[i..mid] and A[mid + 1..j]
+
+- steps to solve:
+    - find left and right sum recursively
+    - find middle crossing sum 
+    - return max(leftSum, rightSum, middleSum)
+
+- see 4-1-maxSA.cpp 
+
+4.2 Strassen's algorithm (matrix multiplication)
+
+sqr_matrix_multiply(A, B):
+    int n = A.size();
+    vector<vector<int>> C(n, vector<int>(n));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            c[i][j] = 0;
+            for (int k = 0; k < n; ++k) {
+                c[i][j] += A[i][k] * B[k][j];
+            }
+        }
+    }
+    return C;
+
+- not all matrix multiplication is Ω(n^3) despite 3 nested loops, Strassen's is Θ(n^log7) -> O(n^2.81)
+- straightforward, recursive, divide-and-conquer algorithm -_-
+- Strassen's method is way too confusing lol, moving on
+
+4.3 Substitution method for solving recurrences
+- recurrences characterize running times of divide-and-conquer algorithms
+- guess form of solution, mathematical induction to find constants
+
+
+
+
+
