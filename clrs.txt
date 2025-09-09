@@ -94,6 +94,8 @@ sqr_matrix_multiply(A, B):
 - Strassen's method is way too confusing lol, moving on
 
 4.3 Substitution method for solving recurrences
+Recurrences: equations/formula describing relation of input size and time complexity
+- "solving" recurrence = find closed-form solution (upper bound), e.g. merge sort recurrence relation: T(n) = 2T(n/2) + O(n), solved: T(n) = O(nlogn)
 - recurrences characterize running times of divide-and-conquer algorithms
 - guess form of solution, mathematical induction to find constants
 
